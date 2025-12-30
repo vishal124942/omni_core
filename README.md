@@ -3,8 +3,6 @@
 
 Turn a single video into a month's worth of high-performance content across LinkedIn, Twitter, Blogs, and Newsletters—generated in seconds, not hours.
 
-![Dashboard Preview](frontend/public/window.svg)
-
 ## 🚀 Key Capabilities
 
 ### 1. **Turbo Mode Architecture** 🏎️💨
