@@ -1,0 +1,47 @@
+# System
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.next/
+out/
+build/
+dist/
+
+# Environment / Secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Application Data
+data/audio/*
+data/visuals/*
+data/temp/*
+data/analysis/*
+!data/audio/.gitkeep
+!data/visuals/.gitkeep
+!data/temp/.gitkeep
+!data/analysis/.gitkeep
+logs.txt
+*.log
+
+# Editor
+.vscode/
+.idea/
