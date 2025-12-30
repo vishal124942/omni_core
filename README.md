@@ -1,122 +1,93 @@
-# 🧠 OMNI-CORE: AI Content Repurposing Engine v1.0.0
+# ⚡️ Omni-Core Engine
+> **The Autonomous Content Repurposing Super-Agent**
 
-OMNI-CORE is a high-performance, real-time autonomous agent designed to transform long-form video content (YouTube/Vimeo/Direct) into a comprehensive suite of high-engagement social media assets. It features a "Ghostwriter" Persona Engine that learns your unique writing style through RAG (Retrieval-Augmented Generation).
+Turn a single video into a month's worth of high-performance content across LinkedIn, Twitter, Blogs, and Newsletters—generated in seconds, not hours.
 
----
+![Dashboard Preview](frontend/public/window.svg)
 
-## 🚀 Key Features
+## 🚀 Key Capabilities
 
-### 1. **Real-Time Token Streaming**
-Unlike traditional "static" generators, OMNI-CORE uses a state-of-the-art **Server-Sent Events (SSE)** architecture. You can watch the AI "think" and write your content token-by-token in real-time, providing immediate feedback and a ChatGPT-like experience.
+### 1. **Turbo Mode Architecture** 🏎️💨
+Unlike traditional sequential agents, Omni-Core uses a **Parallel Swarm Engine**:
+- **Foreground Stream**: Watch the LinkedIn post being drafted live (Real-time token streaming).
+- **Background Swarm**: Twitter threads, Blog posts, Newsletters, and Visuals generate *simultaneously* in the background.
+- **Result**: Reduces 90s+ generation times to **~15-20s**.
 
-### 2. **Ghostwriter Persona Engine (RAG)**
-- **Self-Learning Personalities**: Upload your past content (CSV/Text) to train the engine on your specific voice.
-- **Style Injection**: The engine automatically retrieves relevant examples from your history during the generation process to match your tone, vocabulary, and formatting (e.g., "Bro-etry" social media style).
-- **Multi-Tone Support**: Switch between Professional, Educational, Aggressive, Empathetic, and Inspirational profiles on the fly.
+### 2. **Multi-Modal Research** 🧠
+- **Deep Research**: Agents scan the web (Tavily) to fact-check claims and find relevant case studies.
+- **Parallel Verification**: Verifies multiple claims concurrently using `asyncio` swarms.
 
-### 3. **Autonomous Execution Pipeline**
-- **Transcription-First**: Leverages a dual-strategy for speed—instantly fetching YouTube captions when available, with a high-speed `yt-dlp` fallback for generic videos.
-- **Intelligent Analysis**: Extracts "The Big Idea," "Strong Takes," and detected tone from the transcript.
-- **Social Asset Suite**:
-    - **LinkedIn Posts**: Formatted in high-conversion "Bro-etry" style.
-    - **Twitter Threads**: Optimized threads with pattern interrupts and engagement hooks.
-    - **Long-Form Blogs**: Markdown-formatted articles ready for Medium or personal sites.
-    - **Hook Library**: 5 distinct A/B hook variants (Contrarian, Story, Listicle, Question, Bold Claim).
+### 3. **Visual Intelligence ("The Eye")** 👁️
+- **LinkedIn Carousels**: Auto-generates branded, high-conversion PDF carousels using **Playwright** (Cyberpunk/Minimalist styles).
+- **Viral Thumbnails**: Uses **DALL-E 3** to dream up high-CTR YouTube thumbnails with face composition logic.
 
-### 4. **Production-Ready Features**
-- **B-Roll Intelligence**: Automatically searches for and extracts relevant B-roll image URLs from the Pexels API based on the content's themes.
-- **SEO Scoring**: Real-time analysis of blog posts for keyword density, readability, and structural optimization.
-- **Newsletter Engine**: Generates ready-to-send HTML newsletter templates with embedded thumbnails and calls-to-action.
-- **Airtable Synchronization**: One-click persistence of all generated assets to an organized Airtable production board.
+### 4. **Neural Audio Hub ("The Voice")** 🎙️
+- **Voice Cloning**: Clones the speaker's voice using **ElevenLabs Flash v2.5**.
+- **Auto-Dubbing**: Translates and re-voices content into Spanish/Hindi (via DeepL + ElevenLabs).
 
----
-
-## 🛠 Tech Stack
-
-### **Backend (Python 3.10+)**
-- **FastAPI**: High-performance async web framework for the streaming API.
-- **LangChain**: Orchestration layer for the LLM chains and RAG.
-- **OpenAI GPT-4o / GPT-4o-mini**: Hybrid model strategy for cost and speed optimization.
-- **ChromaDB**: High-speed vector database for persona storage and retrieval.
-- **Whisper & yt-dlp**: Industrial-strength audio extraction and transcription.
-
-### **Frontend (Next.js 14 / TypeScript)**
-- **React Server Components**: Optimized rendering and performance.
-- **Framer Motion**: Premium, high-fidelity micro-interactions and animations (Thinking cursor, Glowing orb, etc.).
-- **Tailwind CSS**: Custom "Cyberpunk" design system with glassmorphism and neon aesthetics.
-- **Lucide React**: Vector-based icon system.
+### 5. **Ultra-Fast Transcription** ⚡️
+- Powered by **Groq Whisper**, transcribing hours of audio in seconds.
+- Smart caching and YouTube caption fetching (Zero-Download strategy).
 
 ---
 
-## 🏗 System Architecture
+## 🛠️ Tech Stack
 
-```mermaid
-graph TD
-    A[YouTube/Video URL] --> B[Whisper Service]
-    B --> C[Full Transcript]
-    C --> D[Ghostwriter Persona RAG]
-    D --> E[Content Generation Engine]
-    E --> F[Analysis - Big Idea/Takes]
-    F --> G[Streaming Response]
-    
-    subgraph "Parallel Production Features"
-        G --> H[Pexels B-Roll API]
-        G --> I[SEO Scoring]
-        G --> J[Newsletter HTML]
-        G --> K[Airtable Persistence]
-    end
-    
-    G --> L[Frontend Dashboard]
-```
+- **Backend**: Python 3.11, FastAPI, Celery, LangChain
+- **Frontend**: Next.js 14, TypeScript, TailwindCSS, Framer Motion
+- **AI Models**: 
+  - GPT-4o (Reasoning & Writing)
+  - Groq Whisper-v3 (Transcription)
+  - DALL-E 3 (Image Generation)
+  - ElevenLabs (Voice Synthesis)
+- **Infrastructure**: Redis (Task Queue), Airtable (CMS)
 
 ---
 
-## 📥 Getting Started
+## 📦 Installation & Setup
 
-### 1. Environment Configuration
-Create a `.env` file in the root directory:
+### Prerequisites
+- Python 3.10+
+- Node.js 18+
+- FFmpeg (for audio processing)
+
+### 1. Backend Setup
 ```bash
-OPENAI_API_KEY=your_key
-PEXELS_API_KEY=your_key
-AIRTABLE_API_KEY=your_key
-AIRTABLE_BASE_ID=your_id
-AIRTABLE_TABLE_NAME=your_table
-```
+# Clone and enter
+git clone https://github.com/vishal124942/omi_core.git
+cd omi_core
 
-### 2. Backend Setup
-```bash
 # Install dependencies
 pip install -r requirements.txt
 
-# Run the API
-PYTHONPATH=$PYTHONPATH:$(pwd) uvicorn app.main:app --reload
+# Create .env file with your keys
+# (OPENAI_API_KEY, GROQ_API_KEY, ELEVENLABS_API_KEY, TAVILY_API_KEY, etc.)
+
+# Start the server
+python -m uvicorn app.main:app --reload
 ```
 
-### 3. Frontend Setup
+### 2. Frontend Setup
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
----
-
-## 💎 UI Component Highlights
-
-- **Neural Link Sidebar**: A full-height navigation pane with an animated "Neural Hub" (Glowing Orb) and real-time status tracking for every step of the pipeline.
-- **Thinking Indicator**: A dedicated real-time display that shows the AI's internal process and token-by-token content generation with a blinking cyber-cursor.
-- **Content Display**: A multi-tab, zero-scroll content pane that automatically switches to the highest-priority generated asset.
-- **Mini-Input Form**: A compact header-integrated form for quickly re-processing or starting new projects without leaving the dashboard.
+### 3. Usage
+1. Open `http://localhost:3000`.
+2. Paste a YouTube URL.
+3. Select desired platforms (LinkedIn, Twitter, Blog, etc.).
+4. Click **ACTIVATE**.
+5. Watch the Neural Link establish and the swarm go to work.
 
 ---
 
-## 📡 API Endpoints (Core)
-
-- `POST /process-video-stream`: The primary SSE streaming endpoint.
-- `POST /style-upload`: Train the Ghostwriter on your past content.
-- `GET /style-info/{client_id}`: Check persona training status.
-- `POST /airtable-save`: Manually trigger synchronization to the production board.
+## 🔄 Reset & Maintenance
+- **New Project**: The UI features a "New" button that performs a **Deep Clean**—wiping local state and physically deleting temporary audio/visual files from the disk to ensure zero contamination between runs.
+- **Git Hygiene**: The repo is configured to ignore heavy media files (`data/`) while preserving structure.
 
 ---
 
-**OMNI-CORE v1.0.0** _ Powered by Advanced Agentic Coding
+## 🤝 Contributing
+Built for speed and scale. PRs welcome for new platform adapters or model optimizations.
